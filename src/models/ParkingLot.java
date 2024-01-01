@@ -8,4 +8,45 @@ public class ParkingLot extends BaseModel{
     private List<Gate> gates;
     private ParkingLotStatus parkingLotStatus;
     private List<VehicleType> allowedVehicleTypes;
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public List<ParkingFloor> getParkingFloors() {
+        return parkingFloors;
+    }
+
+    public void setParkingFloors(List<ParkingFloor> parkingFloors) {
+        this.parkingFloors = parkingFloors;
+    }
+
+    public List<Gate> getGates() {
+        return gates;
+    }
+
+    public void setGates(List<Gate> gates) {
+        this.gates = gates;
+    }
+
+    public ParkingLotStatus getParkingLotStatus() {
+        return parkingLotStatus;
+    }
+
+    public void setParkingLotStatus(ParkingLotStatus parkingLotStatus) {
+        this.parkingLotStatus = parkingLotStatus;
+    }
+
+    public List<VehicleType> getAllowedVehicleTypes() {
+        return allowedVehicleTypes;
+    }
+
+    public void setAllowedVehicleTypes(List<VehicleType> allowedVehicleTypes) {
+        this.allowedVehicleTypes = allowedVehicleTypes;
+    }
 }
