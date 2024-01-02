@@ -4,7 +4,9 @@ import exceptions.GateNotFoundException;
 import models.*;
 import repositories.GateRepository;
 import repositories.ParkingLotRepository;
+import repositories.TickeRepository;
 import repositories.VehicleRepository;
+import strategies.SlotAssignmentStrategyFactory;
 
 import java.util.Date;
 import java.util.Optional;
@@ -13,13 +15,16 @@ public class TicketService {
     private GateRepository gateRepository;
     private VehicleRepository vehicleRepository;
     private ParkingLotRepository parkingLotRepository;
+    private TickeRepository tickeRepository;
 
     public TicketService(GateRepository gateRepository,
                          VehicleRepository vehicleRepository,
-                         ParkingLotRepository parkingLotRepository) {
+                         ParkingLotRepository parkingLotRepository,
+                         TickeRepository tickeRepository) {
         this.gateRepository = gateRepository;
         this.vehicleRepository = vehicleRepository;
         this.parkingLotRepository = parkingLotRepository;
+        this.tickeRepository = tickeRepository;
     }
 
     public Ticket issueTicket(String vehicleNumber,
@@ -61,6 +66,11 @@ public class TicketService {
                 .getParkingLotByGate(gate)
                 .getSlotAssignmentStrategyType();
 
-        return null;
+        ParkingSlot parkingSlot = SlotAssignmentStrategyFactory.getSlotByType(slotAssignmentStrategyType).getSlot(gate, vehicleType);
+        ticket.setParkingSlot(parkingSlot);
+
+        ticket = tickeRepository.saveTicket(ticket);
+        ticket.setTicketNumber("TICKET_" + ticket.getId());
+        return ticket;
     }
 }
